@@ -1,0 +1,128 @@
+Here's an "Open Bank Account" project in Java:
+
+OpenBankAccount.java
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Account {
+    private String accountNumber;
+    private String accountHolderName;
+    private String address;
+    private long phoneNumber;
+    private double balance;
+
+    public Account(String accountNumber, String accountHolderName, String address, long phoneNumber, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.balance = balance;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getAccountHolderName() {
+        return accountHolderName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+public class OpenBankAccount {
+    private static ArrayList<Account> accounts = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("Open Bank Account");
+            System.out.println("1. Open Account");
+            System.out.println("2. View Account");
+            System.out.println("3. Exit");
+
+            System.out.print("Enter choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline left-over
+
+            switch (choice) {
+                case 1:
+                    openAccount();
+                    break;
+                case 2:
+                    viewAccount();
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    private static void openAccount() {
+        System.out.print("Enter account holder name: ");
+        String accountHolderName = scanner.nextLine();
+        System.out.print("Enter address: ");
+        String address = scanner.nextLine();
+        System.out.print("Enter phone number: ");
+        long phoneNumber = scanner.nextLong();
+        scanner.nextLine(); // Consume newline left-over
+        System.out.print("Enter initial balance: ");
+        double balance = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline left-over
+        String accountNumber = generateAccountNumber();
+
+        Account account = new Account(accountNumber, accountHolderName, address, phoneNumber, balance);
+        accounts.add(account);
+        System.out.println("Account opened successfully! Account number: " + accountNumber);
+    }
+
+    private static String generateAccountNumber() {
+        return "ACC" + (accounts.size() + 1);
+    }
+
+    private static void viewAccount() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+
+        for (Account account : accounts) {
+            if (account.getAccountNumber().equals(accountNumber)) {
+                System.out.println("Account Holder Name: " + account.getAccountHolderName());
+                System.out.println("Address: " + account.getAddress());
+                System.out.println("Phone Number: " + account.getPhoneNumber());
+                System.out.println("Balance: " + account.getBalance());
+                return;
+            }
+        }
+        System.out.println("Account not found!");
+    }
+}
+
+
+
+Example usage:
+
+Open Bank Account
+1. Open Account
+2. View Account
+3. Exit
+Enter choice: 1
+Enter account holder name: John Doe
+Enter address: 123 Main St
+Enter phone number: 1234567890
+Enter initial balance: 1000
+Account opened successfully! Account number: ACC1
+
