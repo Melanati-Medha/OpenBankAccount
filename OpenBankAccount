@@ -1,6 +1,6 @@
  "Open Bank Account" project in Java:
 
-OpenBankAccount.java
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
